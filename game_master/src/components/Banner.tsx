@@ -1,9 +1,10 @@
 import React from 'react';
+import bannerImage from './assets/banner.jpg'; 
 
 const Banner: React.FC = () => {
   return (
     <div className="banner">
-      {/* Image de bannière et contenu ici */}
+      <img src={bannerImage} alt="Bannière" style={{ width: '100%', height: '100%' }} />
     </div>
   );
 };
