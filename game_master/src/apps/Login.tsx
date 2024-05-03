@@ -32,7 +32,7 @@ const LoginPage = () => {
     <div className="bg-blue-100 border-2 border-blue-200 p-10 rounded-lg shadow-lg w-250">
       <form className="max-w-md w-full space-y-8" onSubmit={handleLogin}>
         <div>
-          <label htmlFor="email-address" className="sr-only">Email address</label>
+          <label htmlFor="email-address" className="sr-only">Adresse e-mail</label>
           <input
             id="email-address"
             name="email"
@@ -46,7 +46,7 @@ const LoginPage = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="sr-only">Password</label>
+          <label htmlFor="password" className="sr-only">Mot de passe </label>
           <input
             id="password"
             name="password"

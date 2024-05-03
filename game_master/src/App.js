@@ -18,10 +18,10 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Header />
-        
         </header>
-        
         <Routes> 
+          
+          <Route path="/accueil" element={<Accueil />} />
           <Route path="/pc" element={<Pc />} />
           <Route path="/playstation" element={<Playstation />} />
           <Route path="/xbox" element={<Xbox />} />
@@ -29,6 +29,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/nintendoswitch" element={<NintendoSwitch />} />
           <Route path="/signuppage" element={<SignUpPage />} />
+          <Route path="*" element={<div>404 Not Found</div>} />
+
         </Routes>
       </div>
     </Router>

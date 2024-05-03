@@ -4,9 +4,10 @@ import { FaShoppingCart, FaUser, FaGamepad  } from 'react-icons/fa';
 
 function Header() {
   return (
-    <div className="sticky top-0 flex items-center justify-between py-4 px-5 bg-blue-300 opacity-80 text-white">
+    
+    <div className="sticky top-0 flex items-center justify-between py-4 px-5 bg-blue text-white">
       <div className="px-5">
-        <Link to="/">
+        <Link to="/accueil">
           <FaGamepad  className="h-18 w-18" size={72} />
         </Link>
       </div>
