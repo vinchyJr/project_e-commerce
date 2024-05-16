@@ -1,144 +1,66 @@
-import React, { useState } from 'react';
-import cyberpunkImage from './assets/images/cyberpunk.jpg';
-import witcherImage from './assets/images/witcher3.jpg';
-import ageOfEmpiresImage from './assets/images/ageofempires4.jpg';
-import cyberpunkVideo from './assets/videos/cyberpunk.mp4';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Header from '../components/Header';
+import GameCard from '../components/GameCard';
+import Footer from '../components/Footer';
 
 interface Jeu {
   id: number;
-  nom: string;
-  price: string;  
-  image: string;
-  videoUrl?: string;
+  name: string;
+  price: string;
+  image: string | null;
+  videoUrl?: string | null;
 }
 
-const jeuxPc: Jeu[] = [
-  { 
-    id: 1, 
-    nom: 'Cyberpunk 2077', 
-    price: '€49.99', 
-    image: cyberpunkImage,
-    videoUrl: cyberpunkVideo
-  },
-  { 
-    id: 2, 
-    nom: 'The Witcher 3: Wild Hunt', 
-    price: '€29.99', 
-    image: witcherImage,
-    videoUrl: ''
-  },
-  { 
-    id: 3, 
-    nom: 'Age of Empires IV', 
-    price: '€59.99', 
-    image: ageOfEmpiresImage,
-    videoUrl: ''  
-  },
-  { 
-    id: 4, 
-    nom: 'Cyberpunk 2077', 
-    price: '€49.99', 
-    image: cyberpunkImage,
-    videoUrl: cyberpunkVideo
-  },
-  { 
-    id: 5, 
-    nom: 'The Witcher 3: Wild Hunt', 
-    price: '€29.99', 
-    image: witcherImage,
-    videoUrl: ''
-  },
-  { 
-    id: 6, 
-    nom: 'Age of Empires IV', 
-    price: '€59.99', 
-    image: ageOfEmpiresImage,
-    videoUrl: ''  
-  },
-  { 
-    id: 7, 
-    nom: 'Cyberpunk 2077', 
-    price: '€49.99', 
-    image: cyberpunkImage,
-    videoUrl: cyberpunkVideo
-  },
-  { 
-    id: 8, 
-    nom: 'The Witcher 3: Wild Hunt', 
-    price: '€29.99', 
-    image: witcherImage,
-    videoUrl: ''
-  },
-  { 
-    id: 9, 
-    nom: 'Age of Empires IV', 
-    price: '€59.99', 
-    image: ageOfEmpiresImage,
-    videoUrl: ''  
-  },
-  { 
-    id: 10, 
-    nom: 'Cyberpunk 2077', 
-    price: '€49.99', 
-    image: cyberpunkImage,
-    videoUrl: cyberpunkVideo
-  },
-  { 
-    id: 11, 
-    nom: 'The Witcher 3: Wild Hunt', 
-    price: '€29.99', 
-    image: witcherImage,
-    videoUrl: ''
-  },
-  { 
-    id: 12, 
-    nom: 'Age of Empires IV', 
-    price: '€59.99', 
-    image: ageOfEmpiresImage,
-    videoUrl: ''  
-  },
-];
+const Pc: React.FC = () => {
+  const [jeuxPc, setJeuxPc] = useState<Jeu[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-const Pc = () => {
-  const [hovered, setHovered] = useState<number | null>(null);
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/games');
+        const games = await Promise.all(
+          response.data.map(async (game: { id: number }) => {
+            const gameDetails = await axios.get(`http://localhost:3000/game/${game.id}`);
+            return {
+              id: game.id,
+              name: gameDetails.data.name,
+              price: gameDetails.data.price,
+              image: gameDetails.data.image ? `data:image/jpeg;base64,${gameDetails.data.image}` : null,
+              videoUrl: gameDetails.data.video ? `data:video/mp4;base64,${gameDetails.data.video}` : null
+            };
+          })
+        );
+        setJeuxPc(games);
+      } catch (error) {
+        setError('Failed to fetch games');
+        console.error('There was an error fetching the games!', error);
+      }
+    };
+
+    fetchGames();
+  }, []);
 
   return (
-  <div className="bg-color-dark">
-    <div className="bg-color-dark container mx-auto p-4">
-      <h2 className="text-2xl font-bold text-white mb-4 text-center">Jeux PC</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        {jeuxPc.map(jeu => (
-          <div 
-            key={jeu.id}
-            className="relative rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105 m-4 mb-10"
-            onMouseEnter={() => setHovered(jeu.id)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            {hovered === jeu.id && jeu.videoUrl ? (
-              <video 
-                src={jeu.videoUrl} 
-                aria-label={`Video of ${jeu.nom}`} 
-                autoPlay 
-                loop 
-                className="w-full h-full object-cover"
-              >
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img src={jeu.image} alt={`Image of ${jeu.nom}`} className="w-full h-full object-cover" />
-            )}
-            {hovered !== jeu.id && (
-              <div className="absolute bottom-0 w-full p-4 flex justify-between items-center" style={{ 
-                background: 'linear-gradient(rgba(255, 255, 255, 0),rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 1))'
-              }}>
-                <h3 className="text-xl text-blue-800">{jeu.nom}</h3>
-                <span className="text-xl text-blue-800">{jeu.price}</span>
-              </div>
-            )}
-          </div>
-        ))}
+    <div className="bg-color-dark">
+      <Header />
+      <div className="container mx-auto p-4 pt-32">
+        <h2 className="text-2xl font-bold text-white mb-4 text-center">PC Games</h2>
+        {error && <p className="text-red-500 text-center">{error}</p>}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+          {jeuxPc.map((jeu) => (
+            <GameCard key={jeu.id} jeu={{
+              id: jeu.id,
+              nom: jeu.name,
+              price: `€${parseFloat(jeu.price).toFixed(2)}`,
+              image: jeu.image,
+              videoUrl: jeu.videoUrl
+            }} />
+          ))}
+        </div>
       </div>
-    </div>
+      <Footer />
     </div>
   );
 };
