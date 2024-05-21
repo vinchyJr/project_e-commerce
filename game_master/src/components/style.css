@@ -120,7 +120,6 @@
     background: #fff;
     color: #111;
   }
-  /* == responsive == */
   @media screen and (max-width: 900px) {
     .footer .container {
       flex-direction: column;

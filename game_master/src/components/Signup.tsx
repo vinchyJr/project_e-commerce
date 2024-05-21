@@ -26,7 +26,7 @@ const Signup: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/signup', formData);
-      console.log(response.data); // Affichez la réponse du serveur
+      console.log(response.data); 
       if (response.data.success) {
         alert('Signup successful');
         navigate('/login');

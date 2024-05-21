@@ -28,12 +28,11 @@ if (!$result) {
 $games = array();
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        // Assurez-vous que les chemins des images et vidéos sont corrects pour être accessibles depuis le client
         $row['image'] = 'http://localhost/project_e-commerce/game_master/src/apps/assets/images/' . basename($row['image']);
         if ($row['videoUrl']) {
             $row['videoUrl'] = 'http://localhost/project_e-commerce/game_master/src/apps/assets/videos/' . basename($row['videoUrl']);
         } else {
-            $row['videoUrl'] = null; // Ajustez si nécessaire
+            $row['videoUrl'] = null; 
         }
         $games[] = $row;
     }

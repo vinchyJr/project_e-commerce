@@ -19,23 +19,18 @@ const Pc: React.FC = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/games');
-        const games = await Promise.all(
-          response.data.map(async (game: { id: number }) => {
-            const gameDetails = await axios.get(`http://localhost:3000/game/${game.id}`);
-            return {
-              id: game.id,
-              name: gameDetails.data.name,
-              price: gameDetails.data.price,
-              image: gameDetails.data.image ? `data:image/jpeg;base64,${gameDetails.data.image}` : null,
-              videoUrl: gameDetails.data.video ? `data:video/mp4;base64,${gameDetails.data.video}` : null
-            };
-          })
-        );
+        const response = await axios.get('http://localhost:3000/games?platform=pc');
+        const games = response.data.map((game: any) => ({
+          id: game.id,
+          name: game.name,
+          price: game.price,
+          image: game.image ? `data:image/jpeg;base64,${game.image}` : null,
+          videoUrl: game.video ? `data:video/mp4;base64,${game.video}` : null
+        }));
         setJeuxPc(games);
       } catch (error) {
-        setError('Failed to fetch games');
-        console.error('There was an error fetching the games!', error);
+        setError('Aucun jeu dans PC');
+        console.error('Une erreur s est produite lors de la récupération des jeux', error);
       }
     };
 

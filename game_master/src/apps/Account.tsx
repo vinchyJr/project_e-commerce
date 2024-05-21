@@ -14,7 +14,9 @@ interface User {
 interface Order {
   id: number;
   date: string;
+  statut: string;
   total: number;
+  invoice: string;
 }
 
 const Account: React.FC = () => {
@@ -24,10 +26,15 @@ const Account: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user data
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      setError('User not found');
+      return;
+    }
+
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/user');
+        const response = await axios.get(`http://localhost:3000/user/${userId}`);
         setUser(response.data);
       } catch (error) {
         setError('Failed to fetch user data');
@@ -35,10 +42,9 @@ const Account: React.FC = () => {
       }
     };
 
-    // Fetch user orders
     const fetchUserOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/orders');
+        const response = await axios.get(`http://localhost:3000/orders/${userId}`);
         setOrders(response.data);
       } catch (error) {
         setError('Failed to fetch orders');
@@ -53,7 +59,28 @@ const Account: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('isAdmin');
+    localStorage.removeItem('userId');
     navigate('/login');
+  };
+
+  const handleAddBalance = async (amount: number) => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      setError('User not found');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/user/balance', { userId: parseInt(userId, 10), amount });
+      if (response.data.success) {
+        setUser(prevUser => prevUser ? { ...prevUser, balance: prevUser.balance + amount } : prevUser);
+      } else {
+        setError(response.data.error);
+      }
+    } catch (error) {
+      setError('Failed to update balance');
+      console.error('There was an error updating the balance!', error);
+    }
   };
 
   if (error) {
@@ -73,40 +100,43 @@ const Account: React.FC = () => {
   }
 
   return (
-    <div className="bg-color-dark min-h-screen">
+    <div className="">
       <Header />
-      <div className="container mx-auto p-4 pt-32 text-white">
-        <div className="flex flex-col items-start">
-          <h1 className="text-3xl font-bold mb-4">Mon Compte</h1>
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold">Informations personnelles</h2>
-            <p><strong>Nom d'utilisateur:</strong> {user.username}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Solde:</strong> €{user.balance.toFixed(2)}</p>
-          </div>
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold">Historique d'achat</h2>
-            {orders.length === 0 ? (
-              <p>Pas d'achats récents</p>
-            ) : (
-              <ul>
-                {orders.map(order => (
-                  <li key={order.id} className="mb-2">
-                    <p><strong>Commande #{order.id}</strong></p>
-                    <p>Date: {new Date(order.date).toLocaleDateString()}</p>
-                    <p>Total: €{order.total.toFixed(2)}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-          >
-            Déconnexion
-          </button>
+      <div className="bg-yellow-60 container mx-auto m-4 mt-32 text-white flex flex-col items-center rounded-2xl p-5">
+        <h2 className="text-3xl font-bold mb-4">Mon Compte</h2>
+        <div className="mb-4 text-center">
+          <h2 className="text-xl font-semibold">Informations personnelles</h2>
+          <p><strong>Nom d'utilisateur:</strong> {user.username}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Solde:</strong> €{user.balance.toFixed(2)}</p>
         </div>
+        <div className="mb-4 text-center">
+          <h2 className="text-xl font-semibold">Ajouter au solde</h2>
+          <button onClick={() => handleAddBalance(10)} className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Ajouter 10€</button>
+        </div>
+        <div className="mb-4 text-center">
+          <h2 className="text-xl font-semibold">Historique d'achat</h2>
+          {orders.length === 0 ? (
+            <p>Pas d'achats récents</p>
+          ) : (
+            <ul>
+              {orders.map(order => (
+                <li key={order.id} className="mb-2">
+                  <p><strong>Commande #{order.id}</strong></p>
+                  <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+                  <p>Statut: {order.statut}</p>
+                  <p>Total: €{order.total.toFixed(2)}</p>
+                  <a href={`http://localhost:3000/invoices/${order.invoice}`} target="_blank" rel="noopener noreferrer" className="text-blue-500">Voir la facture</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+          Déconnexion
+        </button>
       </div>
       <Footer />
     </div>

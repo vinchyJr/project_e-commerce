@@ -17,13 +17,11 @@ if ($conn->connect_error) {
 $name = $_POST['name'];
 $price = $_POST['price'];
 
-// Handling the image file
 $image = null;
 if (isset($_FILES['image'])) {
     $image = file_get_contents($_FILES['image']['tmp_name']);
 }
 
-// Handling the video file
 $video = null;
 if (isset($_FILES['video'])) {
     $video = file_get_contents($_FILES['video']['tmp_name']);

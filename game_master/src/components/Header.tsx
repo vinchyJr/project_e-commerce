@@ -55,9 +55,7 @@ const Header: React.FC = () => {
             <Link to="/account">
               <FaUser className="h-18 w-18 cursor-pointer hover:text-yellow" size={30} />
             </Link>
-            <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
-              Se déconnecter
-            </button>
+
           </>
         ) : (
           <Link to="/login">
