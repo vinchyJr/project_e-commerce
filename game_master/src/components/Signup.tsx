@@ -10,7 +10,8 @@ const Signup: React.FC = () => {
     username: '',
     email: '',
     password: '',
-    specialCode: ''
+    specialCode: '',
+    birthdate: '' 
   });
   const [error, setError] = useState('');
 
@@ -28,16 +29,16 @@ const Signup: React.FC = () => {
       const response = await axios.post('http://localhost:3000/signup', formData);
       console.log(response.data); 
       if (response.data.success) {
-        alert('Signup successful');
+        alert('Inscription réussie');
         navigate('/login');
       } else if (response.data.error) {
         setError(response.data.error);
       } else {
-        setError('Signup failed');
+        setError('Échec de l\'inscription');
       }
     } catch (error) {
-      setError('There was an error!');
-      console.error('There was an error!', error);
+      setError('Il y avait une erreur!');
+      console.error('Il y avait une erreur!', error);
     }
   };
 
@@ -49,7 +50,7 @@ const Signup: React.FC = () => {
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Username:</label>
+            <label className="block text-sm font-medium text-gray-700">Pseudo:</label>
             <input 
               type="text" 
               name="username" 
@@ -69,7 +70,7 @@ const Signup: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password:</label>
+            <label className="block text-sm font-medium text-gray-700">Mot de passe:</label>
             <input 
               type="password" 
               name="password" 
@@ -79,7 +80,17 @@ const Signup: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Special Code (for Admin):</label>
+            <label className="block text-sm font-medium text-gray-700">Date de naissance:</label>
+            <input 
+              type="date" 
+              name="birthdate" 
+              value={formData.birthdate} 
+              onChange={handleChange} 
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Special Code (pour Admin):</label>
             <input 
               type="text" 
               name="specialCode" 

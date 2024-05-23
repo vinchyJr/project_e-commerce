@@ -47,7 +47,7 @@ const Playstation: React.FC = () => {
           {jeuxPlaystation.map((jeu) => (
             <GameCard key={jeu.id} jeu={{
               id: jeu.id,
-              nom: jeu.name,
+              name: jeu.name,
               price: `€${parseFloat(jeu.price).toFixed(2)}`,
               image: jeu.image,
               videoUrl: jeu.videoUrl

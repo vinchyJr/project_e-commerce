@@ -1,4 +1,3 @@
-// src/apps/GameList.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
@@ -30,7 +29,7 @@ const GameList: React.FC<GameListProps> = ({ platform }) => {
             const gameDetails = await axios.get(`http://localhost:3000/game/${game.id}`);
             return {
               id: game.id,
-              name: gameDetails.data.name,
+              name: gameDetails.data.name, // Remplacez 'nom' par 'name'
               price: gameDetails.data.price,
               image: gameDetails.data.image ? `data:image/jpeg;base64,${gameDetails.data.image}` : null,
               videoUrl: gameDetails.data.video ? `data:video/mp4;base64,${gameDetails.data.video}` : null
@@ -39,8 +38,8 @@ const GameList: React.FC<GameListProps> = ({ platform }) => {
         );
         setGames(games);
       } catch (error) {
-        setError('Failed to fetch games');
-        console.error('There was an error fetching the games!', error);
+        setError('Échec de la récupération des jeux');
+        console.error('Une erreur s\'est produite lors de la récupération des jeux !', error);
       }
     };
 
@@ -57,7 +56,7 @@ const GameList: React.FC<GameListProps> = ({ platform }) => {
           {games.map((game) => (
             <GameCard key={game.id} jeu={{
               id: game.id,
-              nom: game.name,
+              name: game.name, // Remplacez 'nom' par 'name'
               price: `€${parseFloat(game.price).toFixed(2)}`,
               image: game.image,
               videoUrl: game.videoUrl

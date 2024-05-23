@@ -40,7 +40,7 @@ const Login: React.FC = () => {
   return (
     <div className="">
       <Header />
-      <div className="container mx-auto mb-32 pt-32 text- ">
+      <div className="container mx-auto mb-32 pt-32 ">
         <div className="max-w-md mx-auto mt-16 p-8 border rounded-lg shadow-lg bg-white">
           <h2 className="text-lg font-bold mb-6 text-center">Se connecter</h2>
           {error && <p className="text-red-500 text-center">{error}</p>}

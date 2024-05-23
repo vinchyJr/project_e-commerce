@@ -22,7 +22,7 @@ const NintendoSwitch: React.FC = () => {
         const response = await axios.get('http://localhost:3000/games?platform=nintendo-switch');
         const games = response.data.map((game: any) => ({
           id: game.id,
-          name: game.name,
+          name: game.name, // Remplacez 'nom' par 'name'
           price: game.price,
           image: game.image ? `data:image/jpeg;base64,${game.image}` : null,
           videoUrl: game.video ? `data:video/mp4;base64,${game.video}` : null
@@ -47,7 +47,7 @@ const NintendoSwitch: React.FC = () => {
           {jeuxNintendo.map((jeu) => (
             <GameCard key={jeu.id} jeu={{
               id: jeu.id,
-              nom: jeu.name,
+              name: jeu.name, // Remplacez 'nom' par 'name'
               price: `€${parseFloat(jeu.price).toFixed(2)}`,
               image: jeu.image,
               videoUrl: jeu.videoUrl

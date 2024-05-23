@@ -12,6 +12,8 @@ import Login from './apps/Login';
 import AddGame from './apps/AddGame';
 import Game from './apps/Game';
 import Account from './apps/Account';
+import ManageGames from './apps/ManageGames';
+import AdminPage from './apps/AdminPage';
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/manage-games/:id" element={<ManageGames />} />
           <Route path="/nintendoswitch" element={<NintendoSwitch />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<div>404 Not Found</div>} />
         </Routes>

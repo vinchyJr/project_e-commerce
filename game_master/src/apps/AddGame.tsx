@@ -49,7 +49,7 @@ const AddGame: React.FC = () => {
         }
       });
       if (response.data.success) {
-        setSuccess('Game added successfully');
+        setSuccess('Jeu ajouté avec succès');
         setFormData({ name: '', price: '', platform: '', quantity: '' });
         setImage(null);
         setVideo(null);
@@ -57,20 +57,20 @@ const AddGame: React.FC = () => {
         setError(response.data.error);
       }
     } catch (error) {
-      setError('Failed to add game');
+      setError('Échec de l\'ajout du jeu');
     }
   };
 
   return (
     <div className="">
       <Header />
-      <div className="container bg-yellow-60 rounded-3xl mx-auto p-10 text-white mt-60 mb-56 max-w-[620px]">
+      <div className="container bg-yellow-60 rounded-3xl mx-auto p-10 text-white mt-40 mb-56 max-w-[620px]">
         <h2 className="text-3xl font-bold text-center mb-6">Ajoute Ton Jeu</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
         {success && <p className="text-green-500 text-center">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Name:</label>
+            <label className="block text-sm font-medium text-gray-700">Nom:</label>
             <input
               type="text"
               name="name"
@@ -80,7 +80,7 @@ const AddGame: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Price:</label>
+            <label className="block text-sm font-medium text-gray-700">Prix:</label>
             <input
               type="text"
               name="price"
@@ -90,23 +90,23 @@ const AddGame: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Platform:</label>
+            <label className="block text-sm font-medium text-gray-700">Platforme:</label>
             <select
               name="platform"
               value={formData.platform}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow text-blue"
             >
-              <option value="">Select Platform</option>
+              <option value="">Selectionne la Platforme</option>
               <option value="pc">PC</option>
               <option value="playstation">PlayStation</option>
               <option value="xbox">Xbox</option>
               <option value="nintendo-switch">Nintendo Switch</option>
-              <option value="all">All</option>
+              <option value="all">Tout</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Quantity:</label>
+            <label className="block text-sm font-medium text-gray-700">Quantité:</label>
             <input
               type="number"
               name="quantity"
@@ -126,7 +126,7 @@ const AddGame: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Video:</label>
+            <label className="block text-sm font-medium text-gray-700">Vidéo:</label>
             <input
               type="file"
               name="video"
