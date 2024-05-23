@@ -172,7 +172,7 @@ const AdminPage: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-yellow text-black px-4 py-2 rounded-3xl hover:bg-white focus:outline-none focus:ring-2 border focus:ring-yellow"
             >
               Mettre à jour le jeu en avant
             </button>
@@ -201,6 +201,14 @@ const AdminPage: React.FC = () => {
               ))}
             </ul>
           )}
+        </div>
+        <div className="bg-yellow-60 container mx-auto mt-8 rounded-2xl p-6 max-w-[500px]">
+            <div className="text-center">
+              <h2 className="text-xl font-semibold mb-2">Ajouter un nouveau jeu</h2>
+              <a href="/addgame" className="bg-yellow text-black px-4 py-2 rounded-3xl hover:bg-white focus:outline-none focus:ring-2 border focus:ring-yellow">
+                Ajouter un jeu 
+              </a>
+            </div>
         </div>
       </div>
       <Footer />
