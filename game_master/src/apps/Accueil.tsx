@@ -107,7 +107,7 @@ const Accueil: React.FC = () => {
               <div className="absolute left-32 top-1/2 transform -translate-y-1/2 p-4"
                 style={{ backgroundColor: `rgba(253, 207, 118, ${isHovering ? '1' : '0.1'})`, borderRadius: '30px' }}>
                 <Link to={`/game/${jeuEnAvant.id}`} className="block text-5xl font-bold mb-2 hover:text-blue-300">{jeuEnAvant.name}</Link>
-                <Link to={`/game/${jeuEnAvant.id}`} className="block text-3xl hover:text-blue-300">{jeuEnAvant.price}</Link>
+                <Link to={`/game/${jeuEnAvant.id}`} className="block text-3xl hover:text-blue-300">{jeuEnAvant.price} €</Link>
               </div>
               {isAdmin && (
                 <div className="absolute bottom-0 right-0 p-2 bg-yellow">

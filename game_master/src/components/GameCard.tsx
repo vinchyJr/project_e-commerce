@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 interface GameCardProps {
   jeu: {
     id: number;
-    name: string; // Remplacez 'nom' par 'name'
+    name: string; 
     price: string;
     image: string | null;
     videoUrl?: string | null;
@@ -38,7 +38,7 @@ const GameCard: React.FC<GameCardProps> = ({ jeu }) => {
         {jeu.videoUrl && isHovering ? (
           <video
             src={jeu.videoUrl}
-            aria-label={`Video of ${jeu.name}`} // Remplacez 'nom' par 'name'
+            aria-label={`Video of ${jeu.name}`} 
             autoPlay
             muted
             loop
@@ -54,7 +54,7 @@ const GameCard: React.FC<GameCardProps> = ({ jeu }) => {
         <div className="absolute bottom-0 w-full p-4 flex justify-between items-center" style={{ 
           background: 'linear-gradient(rgba(253, 207, 118, 0), rgba(253, 207, 118, 0.8), rgba(253, 207, 118, 1))'
         }}>
-          <h3 className="text-xl text-blue-800">{jeu.name}</h3> {/* Remplacez 'nom' par 'name' */}
+          <h3 className="text-xl text-blue-800">{jeu.name}</h3> 
           <span className="text-xl text-blue-800">{jeu.price}</span>
         </div>
       )}

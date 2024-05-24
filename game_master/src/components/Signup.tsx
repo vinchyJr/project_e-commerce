@@ -45,7 +45,7 @@ const Signup: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className="signup-container max-w-md mx-auto mt-64 mb-32 p-8 border rounded-lg shadow-lg bg-white">
+      <div className="signup-container max-w-md mx-auto mt-40 mb-32 p-8 border rounded-lg shadow-lg bg-white">
         <h2 className="text-lg font-bold mb-6 text-center">Inscription</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
