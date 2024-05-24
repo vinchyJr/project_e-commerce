@@ -18,3 +18,11 @@ Assurez-vous d'être dans le dossier game_master.
 Lancez le projet React en entrant la commande suivante :
 
 npm start
+
+===========================================================================
+
+Pour s'inscrire en tant que admin le code est le suivant:
+
+wxcvbn
+
+===========================================================================
